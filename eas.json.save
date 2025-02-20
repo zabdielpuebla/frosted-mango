@@ -1,0 +1,34 @@
+{
+  "build": {
+    "development": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      }
+    },
+    "production": {
+      "ios": {
+        "buildType": "release"
+      },
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
+
+
+nano
+
+x
+X
+
+
+^X
+
