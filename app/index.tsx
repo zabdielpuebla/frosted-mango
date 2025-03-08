@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity,StyleSheet } from "react-native";
 import { Card, Button } from "react-native-paper";
+import './Index.css';
+
 
 const LoginScreen = () => {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -24,7 +26,7 @@ const LoginScreen = () => {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
       <Card style={{ width: "100%", maxWidth: 400, padding: 20 }}>
         <Card.Content>
-          <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 20, textAlign: "center" }}>
+          <Text style={{ fontSize: 96, fontWeight: "bold", marginBottom: 20, textAlign: "center" }}>
             {isSignUp ? "Create an Account" : "Login"}
           </Text>
 
@@ -57,7 +59,7 @@ const LoginScreen = () => {
           </Button>
 
           <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>
-            <Text style={{ textAlign: "center", marginTop: 15, color: "blue" }}>
+            <Text style ={{ textAlign: "center", marginTop: 15, color: "blue" }}>
               {isSignUp ? "Already have an account? Login" : "Don't have an account? Sign Up"}
             </Text>
           </TouchableOpacity>
