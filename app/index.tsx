@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity,StyleSheet } from "react-native";
 import { Card, Button } from "react-native-paper";
-import './Index.css';
+import { Platform } from 'react-native';
+import Typography from './typography';
 
 
 const LoginScreen = () => {
@@ -26,9 +27,12 @@ const LoginScreen = () => {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
       <Card style={{ width: "100%", maxWidth: 400, padding: 20 }}>
         <Card.Content>
-          <Text style={{ fontSize: 96, fontWeight: "bold", marginBottom: 20, textAlign: "center" }}>
+          
+        
+          <Text style={[Typography.logo, Typography.centered,]}>
             {isSignUp ? "Create an Account" : "Login"}
           </Text>
+          
 
           <TextInput
             style={styles.input}
@@ -43,7 +47,7 @@ const LoginScreen = () => {
             value={password}
             onChangeText={setPassword}
           />
-
+          
           {isSignUp && (
             <TextInput
               style={styles.input}
@@ -54,7 +58,7 @@ const LoginScreen = () => {
             />
           )}
 
-          <Button mode="contained" onPress={isSignUp ? handleSignUp : handleLogin} style={{ marginTop: 10 }}>
+          <Button mode="contained" onPress={isSignUp ? handleSignUp : handleLogin} style={[Typography.coolBlue, {marginTop: 10, }]}>
             {isSignUp ? "Sign Up" : "Login"}
           </Button>
 

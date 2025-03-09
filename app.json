@@ -37,7 +37,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      [
+      "expo-font",
+      {
+        "fonts": ["node_modules/@expo-google-fonts/inter/Inter_900Black.ttf", "node_modules/@expo-google-fonts/inter/Inter_800ExtraBold.ttf"]
+      }
+    ]
     ],
     "experiments": {
       "typedRoutes": true
