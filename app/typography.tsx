@@ -8,7 +8,7 @@ const Typography = StyleSheet.create({
   
 
   // Heading 1
-  logo: {
+  heroHeading: {
     fontFamily: Platform.select({
       android: 'Inter_800ExtraBold',
       ios: 'Inter-ExtraBold',
@@ -27,10 +27,16 @@ const Typography = StyleSheet.create({
 
   },
   // Heading 2
-  h2: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
+  bodySize12: {
+    fontFamily: Platform.select({
+      android: 'Inter_400Regular',
+      ios: 'Inter-Regular',}),
+  fontSize: 12,
+  fontWeight: "400",
+  fontStyle: "normal",
+  lineHeight: 12,
+  textAlign: "center",
+  color: "#1F2024"
   },
   // Heading 3
   h3: {

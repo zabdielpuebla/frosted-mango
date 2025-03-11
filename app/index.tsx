@@ -23,16 +23,34 @@ const LoginScreen = () => {
     console.log("Creating account with:", username, password);
   };
 
+  const createLoginText = () => {
+
+    if(isSignUp == true){
+     return( <Text>Already have an account?
+              <Text style={{color: "blue"}}> Login</Text>
+                </Text>)
+     
+      }
+      
+      else{
+        return(<Text>Not a member?
+          <Text style={{color: "blue"}}> Register now</Text>
+            </Text>)
+      }
+
+
+    }
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
       <Card style={{ width: "100%", maxWidth: 400, padding: 20 }}>
         <Card.Content>
           
-        
-          <Text style={[Typography.logo, Typography.centered,]}>
-            {isSignUp ? "Create an Account" : "Login"}
+          <View style={{marginBottom: 20}}>
+          <Text style={[Typography.heroHeading, Typography.centered,]}>
+            {isSignUp ? ("Create an Account") : "Login"}
           </Text>
-          
+          </View>
 
           <TextInput
             style={styles.input}
@@ -63,8 +81,8 @@ const LoginScreen = () => {
           </Button>
 
           <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>
-            <Text style ={{ textAlign: "center", marginTop: 15, color: "blue" }}>
-              {isSignUp ? "Already have an account? Login" : "Don't have an account? Sign Up"}
+            <Text style ={[Typography.bodySize12,{ textAlign: "center", marginTop: 15,}]}>
+              {createLoginText()}
             </Text>
           </TouchableOpacity>
         </Card.Content>
