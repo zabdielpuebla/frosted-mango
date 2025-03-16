@@ -47,10 +47,20 @@ const LoginScreen = () => {
         <Card.Content>
           
           <View style={{marginBottom: 20}}>
-          <Text style={[Typography.heroHeading, Typography.centered,]}>
-            {isSignUp ? ("Create an Account") : "Login"}
+          <Text style = {[Typography.heroHeading, Typography.centered, {marginBottom: 115}]}>
+            {isSignUp ? ("Create an Account") : "Budget"}
           </Text>
+
+          <Text style = {[Typography.h1]}>Welcome!</Text>
+          
           </View>
+
+    
+        
+           
+
+
+
 
           <TextInput
             style={styles.input}
@@ -65,6 +75,8 @@ const LoginScreen = () => {
             value={password}
             onChangeText={setPassword}
           />
+
+          <Text style = {[{color: '#006FFD'}]}>Forgot Password?</Text>
           
           {isSignUp && (
             <TextInput

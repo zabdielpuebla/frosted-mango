@@ -7,7 +7,6 @@ const Typography = StyleSheet.create({
 
   
 
-  // Heading 1
   heroHeading: {
     fontFamily: Platform.select({
       android: 'Inter_800ExtraBold',
@@ -26,7 +25,7 @@ const Typography = StyleSheet.create({
     shadowOpacity: .15,
 
   },
-  // Heading 2
+  
   bodySize12: {
     fontFamily: Platform.select({
       android: 'Inter_400Regular',
@@ -38,12 +37,50 @@ const Typography = StyleSheet.create({
   textAlign: "center",
   color: "#1F2024"
   },
-  // Heading 3
-  h3: {
+
+  h1: {
+    fontFamily: Platform.select({
+      android: 'Inter_800ExtraBold',
+      ios: 'Inter-ExtraBold'}),
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "800",
+    color: "#1F2024",
   },
+
+  h2: {
+    fontFamily: Platform.select({
+      android: 'Inter_800ExtraBold',
+      ios: 'Inter-ExtraBold'}),
+    fontSize: 18,
+    fontWeight: "800",
+    color: "#1F2024",
+  },
+
+  h3: {
+    fontFamily: Platform.select({
+      android: 'Inter_800ExtraBold',
+      ios: 'Inter-ExtraBold'}),
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#1F2024",
+  },
+  h4: {
+    fontFamily: Platform.select({
+      android: 'Inter_800ExtraBold',
+      ios: 'Inter-ExtraBold'}),
+    fontSize: 14,
+    fontWeight: "800",
+    color: "#1F2024",
+  },
+  h5: {
+    fontFamily: Platform.select({
+      android: 'Inter_800ExtraBold',
+      ios: 'Inter-ExtraBold'}),
+    fontSize: 12,
+    fontWeight: "800",
+    color: "#1F2024",
+  },
+  
 
   centered: {
     textAlign: 'center',  // Center text horizontally
