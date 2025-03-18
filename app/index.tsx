@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity,StyleSheet } from "react-native";
-import { Card, Button } from "react-native-paper";
+import { Card } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { Platform } from 'react-native';
 import Typography from './typography';
+import NewScreen from './budgethome';
+import {Link} from 'expo-router';
 
 
-const LoginScreen = () => {
+
+
+
+
+function LoginScreen(){
+
   const [isSignUp, setIsSignUp] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +31,7 @@ const LoginScreen = () => {
     console.log("Creating account with:", username, password);
   };
 
-  const createLoginText = () => {
+  const signUpOrLogin = () => {
 
     if(isSignUp == true){
      return( <Text>Already have an account?
@@ -42,25 +50,16 @@ const LoginScreen = () => {
     }
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 20 }}>
-      <Card style={{ width: "100%", maxWidth: 400, padding: 20 }}>
+    <View style={{ flex: 3, justifyContent: "center", alignItems: "center", padding: 20 ,backgroundColor: '#ffffff' }}>
+      <Card style={{ width: "100%", maxWidth: 500, padding: 20 , backgroundColor: '#FFFFFF',}}>
         <Card.Content>
           
           <View style={{marginBottom: 20}}>
           <Text style = {[Typography.heroHeading, Typography.centered, {marginBottom: 115}]}>
             {isSignUp ? ("Create an Account") : "Budget"}
           </Text>
-
           <Text style = {[Typography.h1]}>Welcome!</Text>
-          
           </View>
-
-    
-        
-           
-
-
-
 
           <TextInput
             style={styles.input}
@@ -88,13 +87,16 @@ const LoginScreen = () => {
             />
           )}
 
-          <Button mode="contained" onPress={isSignUp ? handleSignUp : handleLogin} style={[Typography.coolBlue, {marginTop: 10, }]}>
+          <Button mode="contained" style={[Typography.coolBlue, {marginTop: 10, }]}>
+            <Link href= "/budgethome">
             {isSignUp ? "Sign Up" : "Login"}
+            </Link>
+              
           </Button>
 
           <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>
             <Text style ={[Typography.bodySize12,{ textAlign: "center", marginTop: 15,}]}>
-              {createLoginText()}
+              {signUpOrLogin()}
             </Text>
           </TouchableOpacity>
         </Card.Content>
@@ -102,6 +104,11 @@ const LoginScreen = () => {
     </View>
   );
 };
+
+
+
+
+
 
 const styles = {
   input: {
@@ -115,4 +122,13 @@ const styles = {
 };
 
 
-export default LoginScreen;
+export default function App(){
+
+
+return LoginScreen();
+
+
+
+}
+
+
