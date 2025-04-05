@@ -6,25 +6,43 @@ import { Platform } from 'react-native';
 import Typography from './typography';
 import NewScreen from './budgethome';
 import {Link} from 'expo-router';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import {connectAuthEmulator } from "firebase/auth";
+
 
 
 function LoginScreen(){
-
+  
+  const auth = getAuth();
+  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+  
+  
   const [isSignUp, setIsSignUp] = useState(false);
-  const [username, setUsername] = useState("");
+  const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const handleLogin = () => {
-    console.log("Logging in with:", username, password);
+  
+  
+  
+  const handleLogin = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      // Signed in successfully.
+      console.log('Logged in!');
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
-  const handleSignUp = () => {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+  const handleSignUp = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      // User account created and signed in.
+      console.log('Account created!');
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
-    console.log("Creating account with:", username, password);
   };
 
   const signUpOrLogin = () => {
@@ -60,7 +78,7 @@ function LoginScreen(){
           <TextInput
             style={styles.input}
             placeholder="Username"
-            value={username}
+            value={email}
             onChangeText={setUsername}
           />
           <TextInput
@@ -83,10 +101,10 @@ function LoginScreen(){
             />
           )}
 
-          <Button mode="contained" style={[Typography.coolBlue, {marginTop: 10, }]}>
-            <Link href= "/budgethome">
+          <Button mode="contained" onPress={isSignUp ? handleSignUp : handleLogin} style={[Typography.coolBlue, { marginTop: 10 }]}>
+            
             {isSignUp ? "Sign Up" : "Login"}
-            </Link>
+            
               
           </Button>
 
