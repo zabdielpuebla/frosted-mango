@@ -23,7 +23,7 @@ const Typography = StyleSheet.create({
       },
     textShadowRadius: 14.800000190734863,
     shadowOpacity: .15,
-
+  
   },
   
   bodySize12: {

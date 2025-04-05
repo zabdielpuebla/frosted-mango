@@ -8,10 +8,6 @@ import NewScreen from './budgethome';
 import {Link} from 'expo-router';
 
 
-
-
-
-
 function LoginScreen(){
 
   const [isSignUp, setIsSignUp] = useState(false);
