@@ -5,7 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "budgetapp",
+    //myapp
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -51,14 +52,34 @@
     "experiments": {
       "typedRoutes": true
     },
+    //"extra": {
+      //"router": {
+        //"origin": false
+      //},
+      //"eas": {
+       // "projectId": "d4e7f271-955a-4c8c-8744-45192fc7e81a"
+      //}
+    //},
+    //"owner": "zabdielpuebla" 
+
     "extra": {
-      "router": {
-        "origin": false
-      },
-      "eas": {
-        "projectId": "d4e7f271-955a-4c8c-8744-45192fc7e81a"
-      }
-    },
-    "owner": "zabdielpuebla"
+  "apiUrl": "http://10.0.0.29:5005",
+  "router": {
+    "origin": false
+  },
+  "eas": {
+    "projectId": "d4e7f271-955a-4c8c-8744-45192fc7e81a"
+  }
+},
+"owner": "zabdielpuebla" 
+
+
+
+
+
+
+
+
+
   }
 }

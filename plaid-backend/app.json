@@ -1,0 +1,8 @@
+{
+  "ios": {
+    "bundleIdentifier": "com.zabdielpuebla.plaid-backend"
+  },
+  "android": {
+    "package": "com.zabdielpuebla.plaidbackend"
+  }
+}
