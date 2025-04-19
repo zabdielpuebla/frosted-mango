@@ -1,0 +1,16 @@
+THIS IS INSRUCTIONS ON RUNNING THE PLAID BACKEND
+
+IN TERMINAL RUN THE BACKEND: 
+cd budget-app/path/to/plaid-backend
+node index.js
+
+IN DIFFERENT TERMINAL RUN THE FRONT END: 
+npx expo start
+
+IMPORTANT NOTES: 
+* PLAID DOES NOT WORK ON EXPO GO, MUST USE DEVELOPMENT BUILD FOR PLAID
+* TO CREATE DEVELOPMENT BUILD FOR PLAID TYPE IN TERMINAL: 
+    * cd path/to/your/budget-app
+    * npx expo install expo-dev-client
+    * eas build --profile development --platform ios
+* npx expo run:ios
