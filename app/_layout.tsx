@@ -1,11 +1,13 @@
-import { Stack } from "expo-router";
+
+import { Provider as PaperProvider } from 'react-native-paper';
+import { Stack } from 'expo-router';
 
 export default function RootLayout() {
-  
-  return <Stack screenOptions={{headerShown: false, }}>
-
-  <Stack.Screen name="index" options={{ title: 'Home' }} />
-  <Stack.Screen name="budgethome" options={{ title: 'BudgetHome' }} />
-
-  </Stack>;
+  return (
+    <PaperProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+      </Stack>
+    </PaperProvider>
+  );
 }
