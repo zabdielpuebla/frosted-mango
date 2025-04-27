@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Platform, ScrollView } from "react-native";
 import { Card, Button } from "react-native-paper";
-import Typography from './typography';
+import Typography from './utils/typography';
 import { useRouter } from 'expo-router';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, connectAuthEmulator } from "firebase/auth";
-import PlaidScreen from './PlaidScreen';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, connectAuthEmulator, sendPasswordResetEmail } from "firebase/auth";
+import { auth, db } from './lib/firebase';
+import { doc, getDoc, setDoc } from "firebase/firestore";
+
+
 
 export default function App() {
-  const auth = getAuth();
-  connectAuthEmulator(auth, "http://127.0.0.1:9099");
+ // const auth = getAuth();
+  //connectAuthEmulator(auth, "http://127.0.0.1:9099");
 
   const router = useRouter();
 
@@ -17,23 +20,75 @@ export default function App() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+
+
+  const handleSignUp = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      // Save user to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        email: user.email,
+        createdAt: new Date().toISOString(),
+        displayName: "", //  add input later
+        budget: 0,
+        totalSpent: 0,
+      });
+  
+      console.log("✅ Account created and data saved!");
+  
+      
+    } catch (error) {
+      console.error("❌ Sign-up error:", error);
+    }
+  };
+  
   const handleLogin = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      console.log('Logged in!');
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      const docRef = doc(db, "users", user.uid);
+      const docSnap = await getDoc(docRef);
+  
+      if (!docSnap.exists()) {
+        console.warn(" No Firestore data found for user.");
+        
+        await setDoc(docRef, {
+          email: user.email,
+          createdAt: new Date().toISOString(),
+          displayName: "",
+          budget: 0,
+          totalSpent: 0,
+        });
+  
+        console.log(" Firestore doc created for existing user.");
+      }
+  
+      router.push(`/tabs/budgethome?uid=${user.uid}`);
+
     } catch (error) {
       console.error("An error occurred:", error);
     }
   };
 
-  const handleSignUp = async () => {
+  const handlePasswordReset = async () => {
+    if (!email) {
+      alert("Please enter your email above first.");
+      return;
+    }
+  
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      console.log('Account created!');
-    } catch (error) {
-      console.error("An error occurred:", error);
+      await sendPasswordResetEmail(auth, email);
+      alert("Password reset link sent! Check your email.");
+    } catch (error: any) {
+      console.error(" Password reset error:", error);
+      alert("Something went wrong. Try again.");
     }
   };
+  
+  
+  
 
   const signUpOrLogin = () => {
     return (
@@ -45,74 +100,98 @@ export default function App() {
       </Text>
     );
   };
+
+  const styles = StyleSheet.create({
+    scrollContainer: {
+      flexGrow: 1,
+      justifyContent: 'center',
+      backgroundColor: '#fff',
+    },
+    container: {
+      padding: 24,
+      alignItems: 'center',
+    },
+    title: {
+      marginBottom: 20,
+      textAlign: 'center',
+    },
+    subHeader: {
+      marginBottom: 20,
+      textAlign: 'center',
+    },
+    input: {
+      width: '100%',
+      padding: 10,
+      borderWidth: 1,
+      borderColor: '#ccc',
+      borderRadius: 8,
+      marginBottom: 12,
+    },
+  });
   
 
   return (
-    <View style={{ flex: 1, padding: 20, backgroundColor: '#ffffff' }}>
-      <Card style={{ width: "100%", maxWidth: 500, padding: 20, backgroundColor: '#FFFFFF', alignSelf: 'center' }}>
-        <Card.Content>
-          <View style={{ marginBottom: 20 }}>
-            <Text style={[Typography.heroHeading, Typography.centered, { marginBottom: 115 }]}>
-              {isSignUp ? "Create an Account" : "Budget"}
-            </Text>
-            <Text style={[Typography.h1]}>Welcome!</Text>
-          </View>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <Text style={[Typography.heroHeading, Typography.centered, styles.title]}>
+          {isSignUp ? "Create an Account" : "Budget App"}
+        </Text>
+  
+        <Text style={[Typography.h1, styles.subHeader]}>Welcome!</Text>
+  
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={email}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+  
+  {!isSignUp && (
+  <TouchableOpacity onPress={handlePasswordReset}>
+    <Text style={{ color: '#006FFD', marginBottom: 10 }}>
+      Forgot Password?
+    </Text>
+  </TouchableOpacity>
+)}
 
+  
+        {isSignUp && (
           <TextInput
             style={styles.input}
-            placeholder="Username"
-            value={email}
-            onChangeText={setUsername}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
+            placeholder="Confirm Password"
             secureTextEntry
-            value={password}
-            onChangeText={setPassword}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
           />
-
-          <Text style={[{ color: '#006FFD' }]}>Forgot Password?</Text>
-
-          {isSignUp && (
-            <TextInput
-              style={styles.input}
-              placeholder="Confirm Password"
-              secureTextEntry
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-            />
-          )}
-
-          <Button mode="contained" onPress={isSignUp ? handleSignUp : handleLogin} style={[Typography.coolBlue, { marginTop: 10 }]}>
-            {isSignUp ? "Sign Up" : "Login"}
-          </Button>
-
-          <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>
-          <View style={{ marginTop: 15, alignItems: 'center' }}>
-  {signUpOrLogin()}
-</View>
-
-
-          </TouchableOpacity>
-        </Card.Content>
-      </Card>
-
-      {/* 👇 Show Plaid below login */}
-      <View style={{ flex: 1, marginTop: 40 }}>
-        <PlaidScreen />
+        )}
+  
+        <Button
+          mode="contained"
+          onPress={isSignUp ? handleSignUp : handleLogin}
+          style={[Typography.coolBlue, { marginTop: 10, borderRadius: 25 }]}
+        >
+          {isSignUp ? "Sign Up" : "Login"}
+        </Button>
+  
+        <TouchableOpacity onPress={() => setIsSignUp(!isSignUp)}>
+          <Text style={{ marginTop: 20, color: '#006FFD', textAlign: 'center' }}>
+            {isSignUp ? "Already have an account? Login" : "Not a member? Register now"}
+          </Text>
+        </TouchableOpacity>
+  
+       
       </View>
-    </View>
+    </ScrollView>
   );
-}
+  
 
-const styles = StyleSheet.create({
-  input: {
-    width: "100%",
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    marginBottom: 10,
-  },
-});
+
+
+}

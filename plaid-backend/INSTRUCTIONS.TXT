@@ -14,3 +14,4 @@ IMPORTANT NOTES:
     * npx expo install expo-dev-client
     * eas build --profile development --platform ios
 * npx expo run:ios
+** only works on IOS simulator not web browser

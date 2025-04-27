@@ -12,14 +12,15 @@ const Typography = StyleSheet.create({
       android: 'Inter_800ExtraBold',
       ios: 'Inter-ExtraBold',
     }),
-    fontSize: 96,
+    fontSize: 80,
     fontWeight: "800",
     fontStyle: "normal",
     color: "#1F2024",
-    textShadowColor: "rgba(31, 32, 36, 0.25)",
+    textShadowColor: "rgba(0, 102, 255, 0.25)",
+
     textShadowOffset: {
 	      width: 0,
-	      height: 4
+	      height: 5
       },
     textShadowRadius: 14.800000190734863,
     shadowOpacity: .15,
