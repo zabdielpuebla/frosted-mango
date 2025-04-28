@@ -1,0 +1,72 @@
+{
+  "expo": {
+    "name": "budget-app",
+    "slug": "budget-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "budgetapp",
+    //myapp
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zabdielpuebla.budgetapp",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.zabdielpuebla.budgetapp"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+      "expo-font",
+      {
+        "fonts": ["node_modules/@expo-google-fonts/inter/Inter_900Black.ttf", 
+        "node_modules/@expo-google-fonts/inter/Inter_800ExtraBold.ttf", 
+        "node_modules/@expo-google-fonts/inter/Inter_700Bold.ttf",
+        "node_modules/@expo-google-fonts/inter/Inter_400Regular.ttf"]
+      }
+    ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+
+    "extra": {
+  "apiUrl": "http://10.0.0.29:5005",
+  
+
+  "router": {
+    "origin": false
+  },
+  "eas": {
+    "projectId": "d4e7f271-955a-4c8c-8744-45192fc7e81a"
+  }
+},
+"owner": "zabdielpuebla" 
+
+
+
+  }
+}
