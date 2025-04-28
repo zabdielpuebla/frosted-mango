@@ -44,3 +44,8 @@ app-example
 #package-lock.json
 #package.json
 #*.json
+
+# Firebase / Plaid secrets
+plaid-backend/plaid-service-account.json
+
+
